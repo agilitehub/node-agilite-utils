@@ -1,0 +1,46 @@
+{
+  "name": "agilite-utils",
+  "license": "MIT",
+  "version": "7.0.1",
+  "description": "Various 3rd party utilities, functions and services that we simplify and use throughout the Agilit-e ecosystem",
+  "homepage": "https://agilite.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/agilitehub/node-agilite-utils"
+  },
+  "bugs": {
+    "url": "https://github.com/agilitehub/node-agilite-utils/issues",
+    "email": "support@agilite.io"
+  },
+  "author": "Agilit-e",
+  "contributors": [
+    {
+      "name": "John Jardin",
+      "email": "support@agilite.io",
+      "url": "https://agilite.io"
+    }
+  ],
+  "keywords": [
+    "agilit-e",
+    "agilite",
+    "nano-performance",
+    "type-detect",
+    "bcrypt",
+    "jwt",
+    "date-fns",
+    "axios"
+  ],
+  "main": "index.js",
+  "scripts": {},
+  "devDependencies": {},
+  "dependencies": {
+    "axios": "0.19.0",
+    "bcrypt": "3.0.6",
+    "date-fns": "2.4.1",
+    "generic-pool": "3.7.1",
+    "jwt-simple": "0.5.6",
+    "nano-performance": "0.0.5",
+    "service-pool": "0.0.4",
+    "type-detect": "4.0.8"
+  }
+}
