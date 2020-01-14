@@ -1,7 +1,7 @@
 {
   "name": "agilite-utils",
   "license": "MIT",
-  "version": "7.0.2",
+  "version": "7.0.6",
   "description": "Various 3rd party utilities, functions and services that we simplify and use throughout the Agilit-e ecosystem",
   "homepage": "https://agilite.io",
   "repository": {
@@ -35,8 +35,8 @@
   "devDependencies": {},
   "dependencies": {
     "axios": "0.19.0",
-    "bcrypt": "3.0.6",
-    "date-fns": "2.4.1",
+    "bcryptjs": "2.4.3",
+    "date-fns": "2.8.1",
     "dotenv": "8.2.0",
     "generic-pool": "3.7.1",
     "jwt-simple": "0.5.6",

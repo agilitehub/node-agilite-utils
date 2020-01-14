@@ -1,4 +1,4 @@
-const Enums = {
+module.exports = {
   ARRAY: 'Array',
   ARRAY_BUFFER: 'ArrayBuffer',
   ARGS: 'Arguments',
@@ -28,5 +28,3 @@ const Enums = {
   WEAK_MAP: 'WeakMap',
   WEAK_SET: 'WeakSet'
 }
-
-module.exports = Enums

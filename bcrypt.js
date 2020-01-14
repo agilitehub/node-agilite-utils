@@ -1,6 +1,6 @@
 const hashValue = async function (value) {
   return new Promise((resolve, reject) => {
-    const BCrypt = require('bcrypt')
+    const BCrypt = require('bcryptjs')
 
     try {
       BCrypt.genSalt(10, function (err, salt) {
@@ -24,7 +24,7 @@ const hashValue = async function (value) {
 
 const compareValues = async function (valueToCompare, hashedValue) {
   return new Promise((resolve, reject) => {
-    const BCrypt = require('bcrypt')
+    const BCrypt = require('bcryptjs')
 
     try {
       BCrypt.compare(valueToCompare, hashedValue, function (err, isMatch) {
