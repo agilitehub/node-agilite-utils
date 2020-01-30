@@ -1,9 +1,12 @@
-const getQueryParams = (qs) => {
-  qs = qs.split('+').join(' ')
-
+const getQueryParams = (url) => {
+  const newUrl = new URL(url)
   const params = {}
   const re = /[?&]?([^=]+)=([^&]*)/g
+
+  let qs = newUrl.search
   let tokens = null
+
+  qs = qs.split('+').join(' ')
 
   // eslint-disable-next-line
   while (tokens = re.exec(qs)) {
