@@ -16,6 +16,19 @@ const getQueryParams = (url) => {
   return params
 }
 
+const getUrlPath = () => {
+  const urlPath = window.location.pathname.split('/')
+  const resultPath = []
+
+  for (const x in urlPath) {
+    if (urlPath[x] !== '') {
+      resultPath.push(urlPath[x])
+    }
+  }
+
+  return resultPath
+}
+
 const isNumber = (value) => {
   const str = ('' + value).trim()
   if (str.length === 0) return false
@@ -37,6 +50,7 @@ const toProperCase = (str) => {
 
 // EXPORTS
 exports.getQueryParams = getQueryParams
+exports.getUrlPath = getUrlPath
 exports.isNumber = isNumber
 exports.padValue = padValue
 exports.toProperCase = toProperCase
