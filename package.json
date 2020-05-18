@@ -34,15 +34,15 @@
   "scripts": {},
   "devDependencies": {},
   "dependencies": {
-    "axios": "0.19.0",
+    "axios": "0.19.2",
     "bcryptjs": "2.4.3",
-    "date-fns": "2.8.1",
+    "date-fns": "2.13.0",
     "dotenv": "8.2.0",
     "generic-pool": "3.7.1",
     "jwt-simple": "0.5.6",
-    "nano-performance": "0.0.5",
-    "service-pool": "0.0.4",
+    "nano-performance": "0.0.6",
+    "service-pool": "0.0.5",
     "type-detect": "4.0.8",
-    "uuid": "3.3.3"
+    "uuid": "8.0.0"
   }
 }
