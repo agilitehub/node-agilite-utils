@@ -1,7 +1,7 @@
 {
   "name": "agilite-utils",
   "license": "MIT",
-  "version": "7.0.11",
+  "version": "7.0.12",
   "description": "Various 3rd party utilities, functions and services that we simplify and use throughout the Agilit-e ecosystem",
   "homepage": "https://agilite.io",
   "repository": {
@@ -20,17 +20,21 @@
       "url": "https://agilite.io"
     }
   ],
+  "main": "index.js",
   "keywords": [
     "agilit-e",
     "agilite",
-    "nano-performance",
-    "type-detect",
+    "axios",
     "bcrypt",
-    "jwt",
     "date-fns",
-    "axios"
+    "moment",
+    "generic-pool",
+    "jwt",
+    "nano-performance",
+    "service-pool",
+    "type-detect",
+    "uuid"
   ],
-  "main": "index.js",
   "scripts": {},
   "devDependencies": {},
   "dependencies": {
@@ -43,6 +47,6 @@
     "nano-performance": "0.0.6",
     "service-pool": "0.0.5",
     "type-detect": "4.0.8",
-    "uuid": "8.1.0"
+    "uuid": "8.2.0"
   }
 }
