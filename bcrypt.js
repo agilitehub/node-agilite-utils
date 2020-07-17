@@ -1,18 +1,15 @@
-const hashValue = async function (value) {
+'use strict'
+
+const BCrypt = require('bcryptjs')
+
+const hashValue = async (value) => {
   return new Promise((resolve, reject) => {
-    const BCrypt = require('bcryptjs')
-
     try {
-      BCrypt.genSalt(10, function (err, salt) {
-        if (err) {
-          return reject(err)
-        }
+      BCrypt.genSalt(10, (err, salt) => {
+        if (err) reject(err)
 
-        BCrypt.hash(value, salt, function (err, hash) {
-          if (err) {
-            return reject(err)
-          }
-
+        BCrypt.hash(value, salt, (err, hash) => {
+          if (err) reject(err)
           resolve(hash)
         })
       })
@@ -22,17 +19,12 @@ const hashValue = async function (value) {
   })
 }
 
-const compareValues = async function (valueToCompare, hashedValue) {
+const compareValues = async (valueToCompare, hashedValue) => {
   return new Promise((resolve, reject) => {
-    const BCrypt = require('bcryptjs')
-
     try {
-      BCrypt.compare(valueToCompare, hashedValue, function (err, isMatch) {
-        if (err) {
-          reject(err)
-        } else {
-          resolve(isMatch)
-        }
+      BCrypt.compare(valueToCompare, hashedValue, (err, isMatch) => {
+        if (err) reject(err)
+        resolve(isMatch)
       })
     } catch (e) {
       reject(e)

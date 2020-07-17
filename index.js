@@ -1,3 +1,5 @@
+'use strict'
+
 const getQueryParams = (url) => {
   const newUrl = new URL(url)
   const params = {}
@@ -20,19 +22,13 @@ const getUrlPath = () => {
   const urlPath = window.location.pathname.split('/')
   const resultPath = []
 
-  for (const x in urlPath) {
-    if (urlPath[x] !== '') {
-      resultPath.push(urlPath[x])
-    }
-  }
-
+  for (const x in urlPath) if (urlPath[x] !== '') resultPath.push(urlPath[x])
   return resultPath
 }
 
 const isNumber = (value) => {
   const str = ('' + value).trim()
-  if (str.length === 0) return false
-  return !isNaN(+str)
+  return (str.length === 0) ? false : !isNaN(+str)
 }
 
 const padValue = (n, width, z) => {
@@ -43,8 +39,83 @@ const padValue = (n, width, z) => {
 }
 
 const toProperCase = (str) => {
-  return str.replace(/\w\S*/g, function (txt) {
+  return str.replace(/\w\S*/g, (txt) => {
     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+  })
+}
+
+const parseJSONAsync = (data, asyncType) => {
+  return new Promise((resolve, reject) => {
+    try {
+      switch (asyncType) {
+        case 'immediate':
+          setImmediate(() => {
+            resolve(JSON.parse(data))
+          })
+          break
+        case 'tick':
+          process.nextTick(() => {
+            resolve(JSON.parse(data))
+          })
+          break
+        default:
+          setTimeout(() => {
+            resolve(JSON.parse(data))
+          }, 0)
+      }
+    } catch (e) {
+      reject(e)
+    }
+  })
+}
+
+const stringifyJSONAsync = (data, asyncType) => {
+  return new Promise((resolve, reject) => {
+    try {
+      switch (asyncType) {
+        case 'immediate':
+          setImmediate(() => {
+            resolve(JSON.stringify(data))
+          })
+          break
+        case 'tick':
+          process.nextTick(() => {
+            resolve(JSON.stringify(data))
+          })
+          break
+        default:
+          setTimeout(() => {
+            resolve(JSON.stringify(data))
+          }, 0)
+      }
+    } catch (e) {
+      reject(e)
+    }
+  })
+}
+
+const createJSONCopy = (data, asyncType) => {
+  return new Promise((resolve, reject) => {
+    try {
+      switch (asyncType) {
+        case 'immediate':
+          setImmediate(() => {
+            resolve(JSON.parse(JSON.stringify(data)))
+          })
+          break
+        case 'tick':
+          process.nextTick(() => {
+            resolve(JSON.parse(JSON.stringify(data)))
+          })
+          break
+        default:
+          setTimeout(() => {
+            resolve(JSON.parse(JSON.stringify(data)))
+          }, 0)
+      }
+    } catch (e) {
+      reject(e)
+    }
   })
 }
 
@@ -54,3 +125,6 @@ exports.getUrlPath = getUrlPath
 exports.isNumber = isNumber
 exports.padValue = padValue
 exports.toProperCase = toProperCase
+exports.parseJSONAsync = parseJSONAsync
+exports.stringifyJSONAsync = stringifyJSONAsync
+exports.createJSONCopy = createJSONCopy
