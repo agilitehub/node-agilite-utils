@@ -8,11 +8,13 @@ Created by [Agilit-e](https://agilite.io)
 - [axios](https://www.npmjs.com/package/axios)
 - [bcrypt](https://www.npmjs.com/package/bcrypt)
 - [date-fns](https://www.npmjs.com/package/date-fns)
+- [dotenv](https://www.npmjs.com/package/dotenv)
 - [generic-pool](https://www.npmjs.com/package/generic-pool)
 - [jwt-simple](https://www.npmjs.com/package/jwt-simple)
 - [nano-performance](https://www.npmjs.com/package/nano-performance)
 - [service-pool](https://www.npmjs.com/package/service-pool)
 - [type-detect](https://www.npmjs.com/package/type-detect)
+- [uuid](https://www.npmjs.com/package/uuid)
 
 **Installation**
 
