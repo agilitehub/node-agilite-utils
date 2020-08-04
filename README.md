@@ -12,7 +12,6 @@ Created by [Agilit-e](https://agilite.io)
 - [generic-pool](https://www.npmjs.com/package/generic-pool)
 - [jwt-simple](https://www.npmjs.com/package/jwt-simple)
 - [nano-performance](https://www.npmjs.com/package/nano-performance)
-- [service-pool](https://www.npmjs.com/package/service-pool)
 - [type-detect](https://www.npmjs.com/package/type-detect)
 - [uuid](https://www.npmjs.com/package/uuid)
 
