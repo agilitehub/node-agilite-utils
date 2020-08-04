@@ -1,7 +1,7 @@
 {
   "name": "agilite-utils",
   "license": "MIT",
-  "version": "7.1.0",
+  "version": "7.1.1",
   "description": "Various 3rd party utilities, functions and services that we simplify and use throughout the Agilit-e ecosystem",
   "homepage": "https://agilite.io",
   "repository": {
@@ -33,7 +33,9 @@
     "jwt",
     "nano-performance",
     "type-detect",
-    "uuid"
+    "uuid",
+    "mongodb",
+    "mongoose"
   ],
   "devDependencies": {},
   "dependencies": {
@@ -43,6 +45,7 @@
     "dotenv": "8.2.0",
     "generic-pool": "3.7.1",
     "jwt-simple": "0.5.6",
+    "mongoose": "5.9.20",
     "nano-performance": "0.0.7",
     "type-detect": "4.0.8",
     "uuid": "8.2.0"
