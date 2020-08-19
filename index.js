@@ -1,5 +1,11 @@
 'use strict'
 
+const PasswordValidator = require('password-validator')
+const TypeDetect = require('type-detect')
+const EnumsTypeDetect = require('./enums-type-detect')
+const EnumsValidations = require('./enums-validations')
+const Validate = require('validate.js')
+
 const getQueryParams = (url) => {
   const newUrl = new URL(url)
   const params = {}
@@ -119,6 +125,135 @@ const createJSONCopy = (data, asyncType) => {
   })
 }
 
+const validateValue = (value, constraintType, maxLength, disableTrim) => {
+  const validateConstraints = {}
+  const validateParam = {}
+
+  let tmpVal = null
+  let result = null
+
+  return new Promise((resolve, reject) => {
+    try {
+      // First, Validate Null and Undefined
+      tmpVal = TypeDetect(value)
+      if ((tmpVal === EnumsTypeDetect.NULL) || (tmpVal === EnumsTypeDetect.UNDEFINED)) return reject(EnumsValidations.resultTypes.UNDEFINED)
+
+      // Next Validate Length
+      tmpVal = value.length
+      if (!maxLength) maxLength = EnumsValidations.maxLengths.GENERAL
+      if (tmpVal > maxLength) return reject(EnumsValidations.resultTypes.MAX_LENGTH)
+
+      // Pre Operations
+      if (!disableTrim) value = value.trim()
+
+      switch (constraintType) {
+        case EnumsValidations.constraintTypes.FIRST_LAST_NAME:
+          value = value.charAt(0).toUpperCase() + value.slice(1) // Capitalize
+
+          validateConstraints[EnumsValidations.constraintTypes.FIRST_LAST_NAME] = {
+            type: 'string',
+            presence: { allowEmpty: false, message: EnumsValidations.resultTypes.EMPTY }
+          }
+
+          break
+        case EnumsValidations.constraintTypes.TEAM_ID:
+          value = value.toLowerCase().replace(/[^\w]/gi, '')
+    
+          validateConstraints[EnumsValidations.constraintTypes.TEAM_ID] = {
+            type: 'string',
+            presence: { allowEmpty: false, message: EnumsValidations.resultTypes.EMPTY }
+          }
+
+          break
+        case EnumsValidations.constraintTypes.EMAIL:
+          value = value.toLowerCase()
+
+          validateConstraints[EnumsValidations.constraintTypes.EMAIL] = {
+            presence: { allowEmpty: false, message: EnumsValidations.resultTypes.EMPTY },
+            email: { message: EnumsValidations.resultTypes.INVALID }
+          }
+
+          break
+        default:
+          validateConstraints[EnumsValidations.constraintTypes.GENERAL] = {
+            type: 'string',
+            presence: { allowEmpty: false, message: EnumsValidations.resultTypes.EMPTY }
+          }
+      }
+
+      // Check for bypassing of Validate
+      switch (constraintType) {
+        case EnumsValidations.constraintTypes.PASSWORD:
+          // Do nothing
+          break
+        default:
+          validateParam[constraintType] = value
+          result = Validate(validateParam, validateConstraints, { fullMessages: false })
+      }
+
+      // Post Operations
+      switch (constraintType) {
+        case EnumsValidations.constraintTypes.PASSWORD:
+          result = validatePassword(value)
+          break
+      }
+
+      // Finalize
+      if (result) {
+        if (TypeDetect(result) !== EnumsTypeDetect.STRING) result = result[constraintType][0]
+        reject(result)
+      } else {
+        resolve(value)
+      }
+    } catch (e) {
+      reject(e)
+    }
+  })
+}
+
+const validatePassword = (password = '') => {
+  const passwordSchema = new PasswordValidator()
+  let valid = null
+  let errMsg = null
+  let x = null
+  let y = null
+
+  try {
+    passwordSchema
+      .is().min(8)
+      .has().symbols()
+      .has().digits()
+      .has().uppercase()
+
+    valid = passwordSchema.validate(password, { list: true })
+    x = 0
+    y = valid.length
+
+    for (; x < y; x++) {
+      switch (valid[x]) {
+        case 'min':
+          errMsg = 'Password must at least be 8 characters in length'
+          break
+        case 'uppercase':
+          errMsg = 'Password must contain at least 1 uppercase letter'
+          break
+        case 'digits':
+          errMsg = 'Password must contain at least 1 numeric value'
+          break
+        case 'symbols':
+          errMsg = 'Password must contain at least 1 symbol'
+          break
+      }
+
+      if (errMsg) break
+    }
+  } catch (e) {
+    errMsg = e.message
+  }
+
+  return errMsg
+}
+
 // EXPORTS
 exports.getQueryParams = getQueryParams
 exports.getUrlPath = getUrlPath
@@ -128,3 +263,5 @@ exports.toProperCase = toProperCase
 exports.parseJSONAsync = parseJSONAsync
 exports.stringifyJSONAsync = stringifyJSONAsync
 exports.createJSONCopy = createJSONCopy
+exports.validateValue = validateValue
+exports.validatePassword = validatePassword
