@@ -14,6 +14,7 @@ Created by [Agilit-e](https://agilite.io)
 - [nano-performance](https://www.npmjs.com/package/nano-performance)
 - [type-detect](https://www.npmjs.com/package/type-detect)
 - [uuid](https://www.npmjs.com/package/uuid)
+- [validate.js](https://www.npmjs.com/package/validate.js)
 
 **Installation**
 
