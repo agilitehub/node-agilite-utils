@@ -14,6 +14,7 @@ module.exports = {
     FIRST_LAST_NAME: 'firstLastName',
     GENERAL: 'general',
     PASSWORD: 'password',
-    TEAM_ID: 'teamId'
+    TEAM_ID: 'teamId',
+    PROFILE_KEY: 'profileKey'
   }
 }
