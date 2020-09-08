@@ -167,6 +167,15 @@ const validateValue = (value, constraintType, maxLength, disableTrim, defaultVal
           }
 
           break
+        case EnumsValidations.constraintTypes.PROFILE_KEY:
+          value = value.toLowerCase().replace(/[^a-z0-9_-]/gi, '')
+
+          validateConstraints[EnumsValidations.constraintTypes.PROFILE_KEY] = {
+            type: 'string',
+            presence: { allowEmpty: false, message: EnumsValidations.resultTypes.EMPTY }
+          }
+
+          break
         case EnumsValidations.constraintTypes.TEAM_ID:
           value = value.toLowerCase().replace(/[^\w]/gi, '')
 
