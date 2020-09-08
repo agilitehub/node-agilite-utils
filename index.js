@@ -125,18 +125,29 @@ const createJSONCopy = (data, asyncType) => {
   })
 }
 
-const validateValue = (value, constraintType, maxLength, disableTrim) => {
+const validateValue = (value, constraintType, maxLength, disableTrim, defaultValue) => {
   const validateConstraints = {}
   const validateParam = {}
 
   let tmpVal = null
+  let tmpVal2 = null
   let result = null
+  let optional = false
 
   return new Promise((resolve, reject) => {
     try {
       // First, Validate Null and Undefined
       tmpVal = TypeDetect(value)
-      if ((tmpVal === EnumsTypeDetect.NULL) || (tmpVal === EnumsTypeDetect.UNDEFINED)) return reject(EnumsValidations.resultTypes.UNDEFINED)
+      tmpVal2 = TypeDetect(defaultValue)
+
+      if ((tmpVal === EnumsTypeDetect.NULL) || (tmpVal === EnumsTypeDetect.UNDEFINED)) {
+        if ((tmpVal2 === EnumsTypeDetect.NULL) || (tmpVal2 === EnumsTypeDetect.UNDEFINED)) {
+          return reject(EnumsValidations.resultTypes.UNDEFINED)
+        } else {
+          value = defaultValue
+          optional = true
+        }
+      }
 
       // Next Validate Length
       tmpVal = value.length
@@ -158,7 +169,7 @@ const validateValue = (value, constraintType, maxLength, disableTrim) => {
           break
         case EnumsValidations.constraintTypes.TEAM_ID:
           value = value.toLowerCase().replace(/[^\w]/gi, '')
-    
+
           validateConstraints[EnumsValidations.constraintTypes.TEAM_ID] = {
             type: 'string',
             presence: { allowEmpty: false, message: EnumsValidations.resultTypes.EMPTY }
@@ -177,7 +188,7 @@ const validateValue = (value, constraintType, maxLength, disableTrim) => {
         default:
           validateConstraints[EnumsValidations.constraintTypes.GENERAL] = {
             type: 'string',
-            presence: { allowEmpty: false, message: EnumsValidations.resultTypes.EMPTY }
+            presence: { allowEmpty: optional, message: EnumsValidations.resultTypes.EMPTY }
           }
       }
 
