@@ -147,6 +147,8 @@ const validateValue = (value, constraintType, maxLength, disableTrim, defaultVal
           value = defaultValue
           optional = true
         }
+      } else if ((tmpVal === EnumsTypeDetect.STRING) && !value) {
+        if ((tmpVal2 !== EnumsTypeDetect.NULL) && (tmpVal2 !== EnumsTypeDetect.UNDEFINED)) optional = true
       }
 
       // Next Validate Length
