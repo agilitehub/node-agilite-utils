@@ -183,7 +183,7 @@ const validateValue = (value, constraintType, maxLength, disableTrim, defaultVal
 
           validateConstraints[EnumsValidations.constraintTypes.TEAM_ID] = {
             type: 'string',
-            presence: { allowEmpty: false, message: EnumsValidations.resultTypes.EMPTY }
+            presence: { allowEmpty: optional, message: EnumsValidations.resultTypes.EMPTY }
           }
 
           break
