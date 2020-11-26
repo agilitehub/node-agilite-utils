@@ -153,8 +153,10 @@ const validateValue = (value, constraintType, maxLength, disableTrim, defaultVal
 
       // Next Validate Length
       tmpVal = value.length
-      if (!maxLength) maxLength = EnumsValidations.maxLengths.GENERAL
-      if (tmpVal > maxLength) return reject(EnumsValidations.resultTypes.MAX_LENGTH)
+      tmpVal2 = TypeDetect(maxLength)
+
+      if (tmpVal2 !== EnumsTypeDetect.NUMBER) maxLength = EnumsValidations.maxLengths.GENERAL
+      if ((maxLength !== 0) && (tmpVal > maxLength)) return reject(EnumsValidations.resultTypes.MAX_LENGTH)
 
       // Pre Operations
       if (!disableTrim) value = value.trim()
