@@ -1,7 +1,7 @@
 {
   "name": "agilite-utils",
   "license": "MIT",
-  "version": "7.2.8",
+  "version": "7.2.9",
   "description": "Various 3rd party utilities, functions and services that we simplify and use throughout the Agilit-e ecosystem",
   "homepage": "https://agilite.io",
   "repository": {
@@ -41,17 +41,17 @@
   ],
   "devDependencies": {},
   "dependencies": {
-    "axios": "0.20.0",
+    "axios": "0.21.0",
     "bcryptjs": "2.4.3",
     "date-fns": "2.16.1",
     "dotenv": "8.2.0",
     "generic-pool": "3.7.1",
     "jwt-simple": "0.5.6",
-    "mongoose": "5.10.3",
+    "mongoose": "5.11.0",
     "nano-performance": "0.0.7",
-    "password-validator": "5.1.0",
+    "password-validator": "5.1.1",
     "type-detect": "4.0.8",
-    "uuid": "8.3.0",
+    "uuid": "8.3.1",
     "validate.js": "0.13.1"
   }
 }
