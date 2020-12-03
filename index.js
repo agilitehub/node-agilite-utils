@@ -278,6 +278,35 @@ const validatePassword = (password = '') => {
   return errMsg
 }
 
+const trimObjectValues = (dataObject) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(async () => {
+      let value = null
+      let type = null
+
+      try {
+        type = TypeDetect(dataObject)
+        if ((type !== EnumsTypeDetect.OBJECT) && (type !== EnumsTypeDetect.ARRAY)) dataObject = {}
+
+        for (const prop in dataObject) {
+          value = dataObject[prop]
+          type = TypeDetect(value)
+
+          if (type === EnumsTypeDetect.OBJECT || type === EnumsTypeDetect.ARRAY) {
+            await trimObjectValues(value)
+          } else if (type === EnumsTypeDetect.STRING) {
+            dataObject[prop] = value.trim()
+          }
+        }
+
+        resolve()
+      } catch (e) {
+        reject(e.message)
+      }
+    }, 0)
+  })
+}
+
 // EXPORTS
 exports.getQueryParams = getQueryParams
 exports.getUrlPath = getUrlPath
@@ -289,3 +318,4 @@ exports.stringifyJSONAsync = stringifyJSONAsync
 exports.createJSONCopy = createJSONCopy
 exports.validateValue = validateValue
 exports.validatePassword = validatePassword
+exports.trimObjectValues = trimObjectValues
