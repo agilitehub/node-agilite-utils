@@ -312,7 +312,7 @@ const _trimObjectValuesExtended = (dataObject) => {
           type = TypeDetect(value)
 
           if (type === EnumsTypeDetect.OBJECT || type === EnumsTypeDetect.ARRAY) {
-            await trimObjectValues(value)
+            await _trimObjectValuesExtended(value)
           } else if (type === EnumsTypeDetect.STRING) {
             dataObject[prop] = value.trim()
           }
