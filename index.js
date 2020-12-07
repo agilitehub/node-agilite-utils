@@ -278,9 +278,28 @@ const validatePassword = (password = '') => {
   return errMsg
 }
 
-const trimObjectValues = (dataObject) => {
+const trimObjectValues = (dataObject, disableImmediate) => {
   return new Promise((resolve, reject) => {
-    setTimeout(async () => {
+    (async () => {
+      try {
+        if (disableImmediate) {
+          await _trimObjectValuesExtended(dataObject)
+        } else {
+          setImmediate(await _trimObjectValuesExtended(dataObject))
+        }
+
+        resolve()
+      } catch (e) {
+        reject(e.message)
+      }
+    })()
+  })
+}
+
+// PRIVATE FUNCTIONS
+const _trimObjectValuesExtended = (dataObject) => {
+  return new Promise((resolve, reject) => {
+    (async () => {
       let value = null
       let type = null
 
@@ -303,7 +322,7 @@ const trimObjectValues = (dataObject) => {
       } catch (e) {
         reject(e.message)
       }
-    }, 0)
+    })()
   })
 }
 
