@@ -278,52 +278,47 @@ const validatePassword = (password = '') => {
   return errMsg
 }
 
-const trimObjectValues = (dataObject, disableImmediate) => {
+const trimObjectValues = (dataObject) => {
   return new Promise((resolve, reject) => {
-    (async () => {
-      try {
-        if (disableImmediate) {
-          await _trimObjectValuesExtended(dataObject)
-        } else {
-          setImmediate(await _trimObjectValuesExtended(dataObject))
-        }
+    let result = null
 
+    setImmediate(async () => {
+      result = _trimObjectValuesExtended(dataObject)
+
+      if (result) {
+        reject(result)
+      } else {
         resolve()
-      } catch (e) {
-        reject(e.message)
       }
-    })()
+    })
   })
 }
 
 // PRIVATE FUNCTIONS
 const _trimObjectValuesExtended = (dataObject) => {
-  return new Promise((resolve, reject) => {
-    (async () => {
-      let value = null
-      let type = null
+  let value = null
+  let type = null
+  let result = null
 
-      try {
-        type = TypeDetect(dataObject)
-        if ((type !== EnumsTypeDetect.OBJECT) && (type !== EnumsTypeDetect.ARRAY)) dataObject = {}
+  try {
+    type = TypeDetect(dataObject)
+    if ((type !== EnumsTypeDetect.OBJECT) && (type !== EnumsTypeDetect.ARRAY)) dataObject = {}
 
-        for (const prop in dataObject) {
-          value = dataObject[prop]
-          type = TypeDetect(value)
+    for (const prop in dataObject) {
+      value = dataObject[prop]
+      type = TypeDetect(value)
 
-          if (type === EnumsTypeDetect.OBJECT || type === EnumsTypeDetect.ARRAY) {
-            await trimObjectValues(value)
-          } else if (type === EnumsTypeDetect.STRING) {
-            dataObject[prop] = value.trim()
-          }
-        }
-
-        resolve()
-      } catch (e) {
-        reject(e.message)
+      if (type === EnumsTypeDetect.OBJECT || type === EnumsTypeDetect.ARRAY) {
+        result = _trimObjectValuesExtended(value)
+      } else if (type === EnumsTypeDetect.STRING) {
+        dataObject[prop] = value.trim()
       }
-    })()
-  })
+    }
+  } catch (e) {
+    result = e.message
+  }
+
+  return result
 }
 
 // EXPORTS
