@@ -296,9 +296,31 @@ const trimObjectValues = (dataObject) => {
 
 // PRIVATE FUNCTIONS
 const _trimObjectValuesExtended = (dataObject) => {
+<<<<<<< HEAD
   let value = null
   let type = null
   let result = null
+=======
+  return new Promise((resolve, reject) => {
+    (async () => {
+      let value = null
+      let type = null
+
+      try {
+        type = TypeDetect(dataObject)
+        if ((type !== EnumsTypeDetect.OBJECT) && (type !== EnumsTypeDetect.ARRAY)) dataObject = {}
+
+        for (const prop in dataObject) {
+          value = dataObject[prop]
+          type = TypeDetect(value)
+
+          if (type === EnumsTypeDetect.OBJECT || type === EnumsTypeDetect.ARRAY) {
+            await _trimObjectValuesExtended(value)
+          } else if (type === EnumsTypeDetect.STRING) {
+            dataObject[prop] = value.trim()
+          }
+        }
+>>>>>>> f4a5a6b4335b7c6525cb5534fc0a48b03277fc21
 
   try {
     type = TypeDetect(dataObject)
