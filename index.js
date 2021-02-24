@@ -50,23 +50,26 @@ const toProperCase = (str) => {
   })
 }
 
-const parseJSONAsync = (data, asyncType) => {
+const parseJSONAsync = (data, asyncType) => { // TODO: This crashes Agilit-e when Parse Fails
   return new Promise((resolve, reject) => {
     try {
       switch (asyncType) {
         case 'immediate':
           setImmediate(() => {
-            resolve(JSON.parse(data))
+            data = JSON.parse(data)
+            resolve(data)
           })
           break
         case 'tick':
           process.nextTick(() => {
-            resolve(JSON.parse(data))
+            data = JSON.parse(data)
+            resolve(data)
           })
           break
         default:
           setTimeout(() => {
-            resolve(JSON.parse(data))
+            JSON.parse(data)
+            resolve(data)
           }, 0)
       }
     } catch (e) {
@@ -75,23 +78,26 @@ const parseJSONAsync = (data, asyncType) => {
   })
 }
 
-const stringifyJSONAsync = (data, asyncType) => {
+const stringifyJSONAsync = (data, asyncType) => { // TODO: This crashes Agilit-e when Parse Fails
   return new Promise((resolve, reject) => {
     try {
       switch (asyncType) {
         case 'immediate':
           setImmediate(() => {
-            resolve(JSON.stringify(data))
+            data = JSON.stringify(data)
+            resolve(data)
           })
           break
         case 'tick':
           process.nextTick(() => {
-            resolve(JSON.stringify(data))
+            data = JSON.stringify(data)
+            resolve(data)
           })
           break
         default:
           setTimeout(() => {
-            resolve(JSON.stringify(data))
+            data = JSON.stringify(data)
+            resolve(data)
           }, 0)
       }
     } catch (e) {
